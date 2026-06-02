@@ -472,7 +472,7 @@ def _test_stdio(mcp: dict, *, timeout: int) -> dict:
         "params": {
             "protocolVersion": "2024-11-05",
             "capabilities": {},
-            "clientInfo": {"name": "hermes-agents-team", "version": "1.0"},
+            "clientInfo": {"name": "hermes-agent-hub", "version": "1.0"},
         },
     }
     proc = None

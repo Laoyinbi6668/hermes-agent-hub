@@ -1,4 +1,4 @@
-# Hermes Agents Team
+# Hermes Agent Hub
 
 基于 [Hermes Agent](https://hermes-agent.nousresearch.com/) profile 机制构建的多 Agent 协作 Web 系统。每个 Agent 是一个独立的 Hermes profile，拥有独立的人设、技能、记忆与工具，通过 Web 中枢、MCP、ACP 与 Hermes Kanban 完成任务拆解、分派、执行、审查与汇总。
 
@@ -46,7 +46,7 @@ run.py           本地开发启动入口
 - 操作系统：Linux / macOS（依赖 `pexpect`，**不支持原生 Windows**；Windows 用户请使用 WSL2）
 - Python 3.10+
 - 已安装并配置好的 [Hermes Agent](https://hermes-agent.nousresearch.com/docs/getting-started)
-- Hermes Agent v0.12.0及以上版本，Hermes CLI 需要支持 `profile`、`acp`、`kanban` 等子命令
+- Hermes Agent v0.12.0 及以上版本，Hermes CLI 需要支持 `profile`、`acp`、`kanban` 等子命令
 
 ### 2. 安装依赖
 
@@ -67,14 +67,16 @@ pip install -r requirements.txt
 | `PORT` | `5050` | HTTP 服务端口 |
 | `FLASK_DEBUG` | `0` | 调试日志开关（不启用自动 reload） |
 | `AUTO_START_AGENTS` | `1` | 项目启动时自动启动所有已就绪 Agent；设为 `0` 可关闭 |
-| `KANBAN_BOARD` | `hermes-agents-team` | Hermes Kanban board 名称 |
+| `KANBAN_BOARD` | `hermes-agent-hub` | Hermes Kanban board 名称 |
 | `KANBAN_POLL_INTERVAL` | `2` | Kanban 状态同步轮询间隔（秒） |
 | `KANBAN_DEFAULT_WORKSPACE` | `scratch` | Kanban 任务默认 workspace |
 | `KANBAN_AUTO_DISPATCH` | `0` | 首次无持久化设置时，自动 Dispatch 开关的默认值 |
 
 ### 4. 配置调整
-需要关闭hermes agent的config.yaml中的dispatch_in_gateway
-```
+
+需要关闭 Hermes Agent 的 `config.yaml` 中的 `dispatch_in_gateway`：
+
+```yaml
 kanban:
   dispatch_in_gateway: false
 ```
@@ -100,57 +102,69 @@ pytest
 - [MCP 管理](doc/mcp-management.md)
 - [Skill 管理](doc/skills-management.md)
 
-## Author
 
-- 林克（Liu Wenbin）
+## 示例
 
-## 例子
 ### 不同角色的描述
 
 - **Leader Agent**：
-```
+
+```text
 负责理解用户目标，拆解项目任务，选择合适的 worker 执行，并跟踪各环节结果。
 ```
+
 - **产品 Agent**：
-```
+
+```text
 负责把用户想法整理成清晰需求，定义功能范围、用户流程、优先级和验收标准。
 ```
+
 - **开发 Agent**：
-```
+
+```text
 负责根据需求完成技术方案、代码实现、接口设计等，不要做测试。
 ```
+
 - **测试 Agent**：
-```
+
+```text
 负责根据需求和实现设计测试用例，验证功能是否正确，并记录缺陷和风险。
-``` 
+```
+
 - **设计 Agent**：
-```
+
+```text
 负责页面结构、交互流程、视觉风格、组件规范和用户体验优化。
-``` 
-- **运维 Agent**：
 ```
+
+- **运维 Agent**：
+
+```text
 负责运行环境、部署流程、配置管理、日志排查、监控告警和上线风险控制。
 ```
+
 ### 任务提示词
-发给leader agent
-```
+
+发给 Leader Agent：
+
+```text
 请大家做一个自我介绍
 ```
-```
+
+```text
 请组织团队分阶段协作，完成一个“待办清单”Web 项目。
 目标：做成完整可用、适合快速演示的小功能，包含前端页面、后端接口和简单数据存储。页面风格是商务科技风格，风格要炫。使用未被占用的端口。
-请严格分阶段执行：先只派产品 Agent 完成简短 PRD，并由 Leader review 通过后，才能派开发 Agent 实现前后端和存储；开发完成后再派测试 Agent 验证，测试Agent验证前必须先写测试用例文档再验证，再写测试报告。
+请严格分阶段执行：先只派产品 Agent 完成简短 PRD，并由 Leader review 通过后，才能派开发 Agent 实现前后端和存储；开发完成后再派测试 Agent 验证，测试 Agent 验证前必须先写测试用例文档再验证，再写测试报告。
 完成标准：
-1. 要有产品的prd文档，开发的设计文档，开发的项目代码，测试的测试用例，和测试的测试报告。缺一不可，否则被定义为未完成
+1. 要有产品的 PRD 文档，开发的设计文档，开发的项目代码，测试的测试用例，和测试的测试报告。缺一不可，否则被定义为未完成
 2. 务必在后台启动服务、确认可访问，并告诉我访问地址。
-``` 
+```
 
-## License
-
+## 许可证
 
 MIT
 
-## Security
+## 安全
 
 安全注意事项见 [SECURITY.md](SECURITY.md)。
 
